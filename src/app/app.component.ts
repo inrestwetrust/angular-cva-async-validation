@@ -12,8 +12,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.mainForm = this.formBuilder.group({
-      childControl: this.formBuilder.control(''),
+      mainControl: this.formBuilder.control(''),
     });
-    this.mainForm.updateValueAndValidity();
+
+    this.mainForm.setValue({
+      mainControl: {
+        childControl: 'test',
+      },
+    });
   }
 }

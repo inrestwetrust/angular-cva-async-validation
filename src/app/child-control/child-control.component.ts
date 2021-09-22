@@ -52,30 +52,12 @@ export class ChildControlComponent
   }
 
   // region CVA
-  public onTouched: () => void = () => {};
-
   writeValue(val: any): void {
-    if (!val) {
-      return;
-    }
-    this.childForm.patchValue(val);
-  }
-
-  registerOnChange(fn: () => void): void {
-    this.childForm.valueChanges.subscribe(fn);
-  }
-
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    isDisabled ? this.childForm.disable() : this.childForm.enable();
+    this.childForm.reset(val);
   }
 
   validate(): Observable<ValidationErrors | null> {
-    console.log('validate');
-    // return this.taxCountriesForm.valid ? null : { invalid: true };
+    console.log('validate', this.childForm.status);
     return this.childForm.statusChanges.pipe(
       filter((status) => status !== 'PENDING'),
       map((status) => {
@@ -84,6 +66,19 @@ export class ChildControlComponent
       }),
       first()
     );
+  }
+
+  registerOnChange(fn: () => void): void {
+    this.childForm.valueChanges.subscribe(fn);
+  }
+
+  public onTouched: () => void = () => {};
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    isDisabled ? this.childForm.disable() : this.childForm.enable();
   }
   // endregion
 }
