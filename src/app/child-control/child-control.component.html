@@ -1,0 +1,9 @@
+<p>Child control valid: {{ childForm.get('childControl').valid }}</p>
+<p>Child control status: {{ childForm.get('childControl').status }}</p>
+
+<div [formGroup]="childForm">
+	<div class="form-group">
+		<h4 translate>Child control with async validation: </h4>
+		<input type="text" formControlName="childControl">
+  </div>
+</div>
