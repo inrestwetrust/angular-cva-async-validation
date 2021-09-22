@@ -10,7 +10,7 @@ import {
   ControlValueAccessor,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { map, first, filter } from 'rxjs/operators';
+import { map, first, filter, startWith } from 'rxjs/operators';
 
 @Component({
   templateUrl: './child-control.component.html',
@@ -46,6 +46,7 @@ export class ChildControlComponent
         [this.appValidator.asyncValidation()]
       ),
     });
+    console.log('initial', this.childForm.status);
     this.childForm.statusChanges.subscribe((status) => {
       console.log('subscribe', status);
     });
@@ -59,6 +60,7 @@ export class ChildControlComponent
   validate(): Observable<ValidationErrors | null> {
     console.log('validate', this.childForm.status);
     return this.childForm.statusChanges.pipe(
+      startWith(this.childForm.status),
       filter((status) => status !== 'PENDING'),
       map((status) => {
         console.log('pipe', status);
