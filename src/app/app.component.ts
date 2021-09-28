@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
       mainControl: this.formBuilder.control(''),
     });
 
+    // require to set value after view ready
+    // otherwise initial state of form will freeze on PENDING
     setTimeout(()=>{this.mainForm.setValue({
       mainControl: {
         childControl: 'test',
