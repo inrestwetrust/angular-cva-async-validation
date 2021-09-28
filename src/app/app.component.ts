@@ -15,10 +15,10 @@ export class AppComponent implements OnInit {
       mainControl: this.formBuilder.control(''),
     });
 
-    this.mainForm.setValue({
+    setTimeout(()=>{this.mainForm.setValue({
       mainControl: {
         childControl: 'test',
       },
-    });
+    })}, 0);
   }
 }
