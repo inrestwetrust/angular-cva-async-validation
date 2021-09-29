@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AppComponent implements OnInit {
   mainForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private changeDetector: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.mainForm = this.formBuilder.group({
@@ -17,10 +20,11 @@ export class AppComponent implements OnInit {
 
     // require to set value after view ready
     // otherwise initial state of form will freeze on PENDING
-    setTimeout(()=>{this.mainForm.setValue({
+    this.changeDetector.detectChanges();
+    this.mainForm.setValue({
       mainControl: {
         childControl: 'test',
       },
-    })}, 0);
+    });
   }
 }
